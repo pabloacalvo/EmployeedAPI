@@ -1,0 +1,35 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# Visual Studio / VS Code
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# JetBrains Rider
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# SQLite database files
+*.db
+*.sqlite
+*.db-shm
+*.db-wal
+
+# Secrets / Environment
+*.env
+secrets.json
+
+# System files
+Thumbs.db
+.DS_Store
+
+# Publish folder
+publish/
