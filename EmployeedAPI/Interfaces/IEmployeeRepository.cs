@@ -1,5 +1,5 @@
 ﻿using EmployeedAPI.Dto;
-using EmployeedAPI.entities;
+using EmployeedAPI.Models;
 
 namespace EmployeedAPI.Interfaces
 {
@@ -9,7 +9,7 @@ namespace EmployeedAPI.Interfaces
 
         Employee GetEmployeeById(int id);
         ICollection<Employee> GetEmployeesIdBusiness(int idBusiness);
-        bool AddEmployee(Employee employee);
+        bool AddEmployee(EmployeeCreateDto employee);
         bool Save();
 
     }

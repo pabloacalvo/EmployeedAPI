@@ -1,14 +1,13 @@
-﻿using EmployeedAPI.Data;
-using EmployeedAPI.entities;
+﻿using EmployeedAPI.Models;
 using EmployeedAPI.Interfaces;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using EmployeedAPI.Dto;
 
 namespace EmployeedAPI.Controllers
 {
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController: Controller
+    public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
         public EmployeeController(IEmployeeRepository employeeRepository)
@@ -23,7 +22,8 @@ namespace EmployeedAPI.Controllers
         }
 
         [HttpGet("{idEmployee}")]
-        public IActionResult GetEmployeeById(int idEmployee) {
+        public IActionResult GetEmployeeById(int idEmployee)
+        {
 
             return Ok(_employeeRepository.GetEmployeeById(idEmployee));
         }
@@ -44,16 +44,19 @@ namespace EmployeedAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee([FromBody] Employee employee) {
+        public IActionResult CreateEmployee([FromBody] EmployeeCreateDto employee)
+        {
 
-            if (employee == null) {
+            if (employee == null)
+            {
                 return BadRequest("Invalid eployee data");
-            
+
             }
             var created = _employeeRepository.AddEmployee(employee);
 
-            if (!created) {
-                return StatusCode(500,"Error saving employee");
+            if (!created)
+            {
+                return StatusCode(500, "Error saving employee");
             }
 
             return Ok(employee); // retorna el empleado creado

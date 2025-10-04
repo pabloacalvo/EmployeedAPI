@@ -1,7 +1,7 @@
 ﻿using EmployeedAPI.Data;
 using EmployeedAPI.Dto;
-using EmployeedAPI.entities;
 using EmployeedAPI.Interfaces;
+using EmployeedAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeedAPI.Repository
@@ -18,33 +18,51 @@ namespace EmployeedAPI.Repository
         public ICollection<EmployeeDto> GetEmployees()
         {
             return _context.Employees
-                .Include(e => e.State)
-                .Include(e => e.Departament)
                 .Select(e => new EmployeeDto
                 {
                     Id = e.Id,
                     EmployeeCode = e.EmployeeCode,
-                    LastName = e.LastName,
                     FirstName = e.FirstName,
-                    Range = e.Range,
-                    HireDate = e.HireDate,
-                    BusinessId = e.BusinessId,
+                    LastName = e.LastName,
                     Email = e.Email,
                     Phone = e.Phone,
-                    StateName = e.State != null ? e.State.NameState : string.Empty,
-                    DepartamentName = e.Departament != null ? e.Departament.DepartamentName : string.Empty
+                    BirthdayDate = e.BirthdayDate,
+                    BusinessId = e.BusinessId,
+                    Departament = e.Departament,
+                    HireDate = e.HireDate,
+                    Range = e.Range,
+                    State = e.State
                 })
                 .ToList();
         }
 
 
-        public bool AddEmployee(Employee employee) {
+        public bool AddEmployee(EmployeeCreateDto employeeDto) {
+
+            var employee = new Employee
+            {
+                FirstName = employeeDto.FirstName,
+                LastName = employeeDto.LastName,
+                Email = employeeDto.Email,
+                Phone = employeeDto.Phone,
+                BirthdayDate = employeeDto.BirthdayDate,
+                BusinessId = employeeDto.BusinessId,
+                Departament = employeeDto.Departament,
+                HireDate = employeeDto.HireDate,
+                Range = employeeDto.Range,
+                State = employeeDto.State
+            };
+
             _context.Employees.Add(employee);
+            _context.SaveChanges(); // se genera el Id
+            employee.EmployeeCode = $"{employee.BusinessId}{employee.Id}";
+            
             return Save();
         }
 
         public bool Save()
         {
+             //el metodo de EF devuelve la cantidad de registros afectados
             return _context.SaveChanges() > 0; // retorna true si guarda
         }
 

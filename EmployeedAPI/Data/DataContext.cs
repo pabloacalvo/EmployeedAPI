@@ -1,6 +1,5 @@
-﻿using EmployeedAPI.entities;
+﻿using EmployeedAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using EmployeedAPI.Models;
 
 namespace EmployeedAPI.Data
 {
@@ -8,8 +7,6 @@ namespace EmployeedAPI.Data
     {
         public DataContext(DbContextOptions<DataContext> options):base(options) { } // Se usa poirque en ASP.NET Core ya se intecta por Dependency Injection
         public DbSet<Employee> Employees => Set <Employee>() ;
-        public DbSet<Departament>Departaments => Set <Departament>() ;
-        public DbSet<State>States => Set<State>();
 
     }
 }

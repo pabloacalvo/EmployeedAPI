@@ -22,12 +22,6 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 var app = builder.Build();
 
-// ejecutar seeding
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-    Seed.SeedData(context);
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
